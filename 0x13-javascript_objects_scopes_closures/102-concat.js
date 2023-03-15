@@ -1,22 +1,15 @@
 #!/usr/bin/node
+
 const fs = require('fs');
+const path = require('path');
 
-const fileA = process.argv[2];
-const fileB = process.argv[3];
-const fileC = process.argv[4];
+const file1 = process.argv[2];
+const file2 = process.argv[3];
+const dest = process.argv[4];
 
-if (
-  fs.existsSync(fileA) &&
-fs.statSync(fileA).isFile &&
-fs.existsSync(fileB) &&
-fs.statSync(fileB).isFile &&
-fileC !== undefined
-) {
-  const fileAContent = fs.readFileSync(fileA);
-  const fileBContent = fs.readFileSync(fileB);
-  const stream = fs.createWriteStream(fileC);
+const contents1 = fs.readFileSync(path.resolve(file1), 'utf-8');
+const contents2 = fs.readFileSync(path.resolve(file2), 'utf-8');
 
-  stream.write(fileAContent);
-  stream.write(fileBContent);
-  stream.end();
-}
+const combinedContents = contents1 + contents2;
+
+fs.writeFileSync(path.resolve(dest), combinedContents);

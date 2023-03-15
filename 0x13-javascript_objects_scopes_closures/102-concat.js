@@ -1,15 +1,17 @@
 #!/usr/bin/node
 
 const fs = require('fs');
-const path = require('path');
 
-const file1 = process.argv[2];
-const file2 = process.argv[3];
-const dest = process.argv[4];
+if (process.argv.length !== 5) {
+  console.error('Usage: node concat.js [source1] [source2] [destination]');
+  process.exit(1);
+}
 
-const contents1 = fs.readFileSync(path.resolve(file1), 'utf-8');
-const contents2 = fs.readFileSync(path.resolve(file2), 'utf-8');
+const [source1, source2, destination] = process.argv.slice(2);
 
-const combinedContents = contents1 + contents2;
+const file1 = fs.readFileSync(source1, 'utf-8');
+const file2 = fs.readFileSync(source2, 'utf-8');
 
-fs.writeFileSync(path.resolve(dest), combinedContents);
+fs.writeFileSync(destination, file1 + file2);
+
+console.log(`The contents of ${source1} and ${source2} have been concatenated and written to ${destination}\n`);

@@ -1,7 +1,14 @@
-import sys
+#!/usr/bin/node
+'use strict';
 
-try:
-    with open(sys.argv[1], 'r', encoding='utf-8') as file:
-        print(file.read())
-except Exception as e:
-    print(e)
+const fs = require('fs');
+const filePath = process.argv[2];
+
+try {
+  fs.readFile(filePath, 'utf8', (err, data) => {
+    if (err) throw err;
+    console.log(data);
+  });
+} catch (err) {
+  console.error(err);
+}

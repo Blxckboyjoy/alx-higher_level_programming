@@ -1,15 +1,10 @@
 #!/usr/bin/node
+const fs = require('fs');
+const path = process.argv[2];
+const argms = process.argv[3];
 
-const request = require('request');
-
-const movieID = process.argv[2];
-const url = `https://swapi-api.alx-tools.com/api/films/${movieID}`;
-
-request(url, function (error, response, body) {
-  if (error) {
-    console.error(error);
-  } else {
-    const movieData = JSON.parse(body);
-    console.log(movieData.title);
+fs.writeFile(path, argms, function (err) {
+  if (err) {
+    console.log(err);
   }
 });
